@@ -1,0 +1,26 @@
+[
+  { 
+    "name": "Pikachu", 
+    "type": "Électrique",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png",
+    "number": 25
+  },
+  { 
+    "name": "Bulbizarre", 
+    "type": "Plante",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png",
+    "number": 1
+  },
+  { 
+    "name": "Salamèche", 
+    "type": "Feu",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png",
+    "number": 4
+  },
+  { 
+    "name": "Carapuce", 
+    "type": "Eau",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/7.png",
+    "number": 7
+  }
+]

@@ -1,0 +1,18 @@
+.pokemon-list-container {
+  padding: 20px;
+}
+
+.pokemon-list-container h2 {
+  text-align: center;
+  color: #212529;
+  margin-bottom: 30px;
+}
+
+.pokemon-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
