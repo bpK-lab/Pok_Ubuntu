@@ -5,14 +5,26 @@ const PokemonDetail = ({ pokemon, onBack }) => {
   const [pokemonDetails, setPokemonDetails] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  // ✔️ Couleurs officielles Pokédex
   const typeColors = {
-    "Électrique": "#FFD86F",
-    "Plante": "#9BCC50",
-    "Feu": "#FD7D24",
-    "Eau": "#4592C4",
-    "Vol": "#77b5fe",
-    "Normal": "#606060",
-    "Psy": "#fd6c9e"
+    normal:  "#A8A77A",
+    fire:    "#EE8130",
+    water:   "#6390F0",
+    electric:"#F7D02C",
+    grass:   "#7AC74C",
+    ice:     "#96D9D6",
+    fighting:"#C22E28",
+    poison:  "#A33EA1",
+    ground:  "#E2BF65",
+    flying:  "#A98FF3",
+    psychic: "#F95587",
+    bug:     "#A6B91A",
+    rock:    "#B6A136",
+    ghost:   "#735797",
+    dragon:  "#6F35FC",
+    dark:    "#705746",
+    steel:   "#B7B7CE",
+    fairy:   "#D685AD"
   };
 
   useEffect(() => {
@@ -41,9 +53,10 @@ const PokemonDetail = ({ pokemon, onBack }) => {
     );
   }
 
-  if (!pokemonDetails) {
-    return null;
-  }
+  if (!pokemonDetails) return null;
+
+  // ✔️ Type principal (pour couleurs)
+  const mainType = pokemonDetails.types[0].type.name;
 
   return (
     <div className="detail-container">
@@ -52,32 +65,48 @@ const PokemonDetail = ({ pokemon, onBack }) => {
       </button>
 
       <div className="detail-card">
-        <div 
-          className="detail-header" 
-          style={{ backgroundColor: typeColors[pokemon.type] }}
+        {/* HEADER */}
+        <div
+          className="detail-header"
+          style={{ backgroundColor: typeColors[mainType] }}
         >
           <div className="detail-header-content">
-            <h1>{pokemon.name}</h1>
-            <p className="detail-number">#{String(pokemonDetails.id).padStart(3, '0')}</p>
+            <h1>{pokemonDetails.name}</h1>
+            <p className="detail-number">
+              #{String(pokemonDetails.id).padStart(3, '0')}
+            </p>
           </div>
+
           <img
-            src={pokemonDetails.sprites.other['official-artwork'].front_default || pokemonDetails.sprites.front_default}
+            src={
+              pokemonDetails.sprites.other['official-artwork'].front_default ||
+              pokemonDetails.sprites.front_default
+            }
             alt={pokemon.name}
             className="detail-image"
           />
         </div>
 
+        {/* BODY */}
         <div className="detail-body">
+
+          {/* TYPES */}
           <div className="detail-section">
-            <h3>Type</h3>
-            <span
-              className="detail-type-badge"
-              style={{ backgroundColor: typeColors[pokemon.type] }}
-            >
-              {pokemon.type}
-            </span>
+            <h3>Type(s)</h3>
+            <div className="type-badge-container">
+              {pokemonDetails.types.map((t) => (
+                <span
+                  key={t.type.name}
+                  className="detail-type-badge"
+                  style={{ backgroundColor: typeColors[t.type.name] }}
+                >
+                  {t.type.name}
+                </span>
+              ))}
+            </div>
           </div>
 
+          {/* SIZE + WEIGHT */}
           <div className="detail-info-grid">
             <div className="info-box">
               <p className="info-label">Taille</p>
@@ -89,6 +118,7 @@ const PokemonDetail = ({ pokemon, onBack }) => {
             </div>
           </div>
 
+          {/* STATS */}
           <div className="detail-section">
             <h3>Statistiques</h3>
             <div className="stats-container">
@@ -100,12 +130,13 @@ const PokemonDetail = ({ pokemon, onBack }) => {
                     </span>
                     <span className="stat-value">{stat.base_stat}</span>
                   </div>
+
                   <div className="stat-bar-bg">
                     <div
                       className="stat-bar"
                       style={{
                         width: `${(stat.base_stat / 255) * 100}%`,
-                        backgroundColor: typeColors[pokemon.type]
+                        backgroundColor: typeColors[mainType]
                       }}
                     />
                   </div>
@@ -114,17 +145,19 @@ const PokemonDetail = ({ pokemon, onBack }) => {
             </div>
           </div>
 
+          {/* ABILITIES */}
           <div className="detail-section">
             <h3>Capacités</h3>
             <div className="abilities-container">
               {pokemonDetails.abilities.map((ability) => (
                 <span key={ability.ability.name} className="ability-badge">
                   {ability.ability.name.replace('-', ' ')}
-                  {ability.is_hidden && ' (caché)'}
+                  {ability.is_hidden && ' (cachée)'}
                 </span>
               ))}
             </div>
           </div>
+
         </div>
       </div>
     </div>
